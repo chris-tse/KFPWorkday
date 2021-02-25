@@ -21,10 +21,18 @@ public class Drumstick : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Character")
+        Collider2D collider = collision.collider;
+
+        if (collider.name == "Floor")
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        if (collider.name == "Character" && collision.collider.GetType() == typeof(EdgeCollider2D))
         {
             scoreCounter.Increment();
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }
